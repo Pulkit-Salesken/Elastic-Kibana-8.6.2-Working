@@ -26,17 +26,35 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		  <dependency>
-    <groupId>org.springframework.data</groupId>
-    <artifactId>spring-data-elasticsearch</artifactId>
-  </dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-elasticsearch</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.elasticsearch</groupId>
 			<artifactId>elasticsearch</artifactId>
 			<version>8.6.2</version>
 		</dependency>
+		<!--  -->
+		<!-- https://mvnrepository.com/artifact/org.tensorflow/tensorflow -->
+		  <dependency>
+  <groupId>org.tensorflow</groupId>
+  <artifactId>tensorflow-core-platform</artifactId>
+  <version>0.2.0</version>
+</dependency>
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20210307</version>
+</dependency>
+
 	</dependencies>
 	<build>
+		<resources>
+        <resource>
+            <directory>C:\Users\Salesken\Documents\demo\src\main\java\com\elk\demo\universal-sentence-encoder-4-java</directory>
+        </resource>
+    </resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

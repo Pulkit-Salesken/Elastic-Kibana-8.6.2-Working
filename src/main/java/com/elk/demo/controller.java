@@ -1,17 +1,44 @@
 package com.elk.demo;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.tensorflow.SavedModelBundle;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.xcontent.XContentType;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+import org.tensorflow.SavedModelBundle;
+import org.tensorflow.Session;
+import org.tensorflow.Tensor;
+import org.tensorflow.ndarray.NdArrays;
+import org.tensorflow.types.TFloat32;
+import org.tensorflow.types.TString;
+
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch.core.IndexRequest;
+import co.elastic.clients.elasticsearch.core.IndexResponse;
+import co.elastic.clients.json.JsonData;
+
+import org.json.JSONObject;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.io.UnsupportedEncodingException;
+
 
 @RestController
 public class controller {
@@ -19,6 +46,14 @@ public class controller {
 //    @Autowired
 //    private elkService elkService;
 //    
+	
+	public String modelPath;
+	
+	public SavedModelBundle savedModelBundle;
+	
+	static String indexName = "vector_index";
+
+	
 	@Autowired
 	private ElasticsearchClient client;
 
@@ -26,6 +61,16 @@ public class controller {
 	public void func() {
 		System.out.println("func ==> ");
 	}
+	
+	@GetMapping("/vectorSearch")
+	public String vectorSearch() throws IOException {
+		
+		
+		semanticSearch search = new semanticSearch(client, "C:\\Users\\Salesken\\Documents\\demo\\src\\main\\java\\com\\elk\\demo\\universal-sentence-encoder-4-java");
+		search.runSearch();
+		return "working";
+	}
+	
 
 	@GetMapping("/index")
 	public String insertRecords() throws IOException {
@@ -53,6 +98,7 @@ public class controller {
 //		    .index("testing_index")
 //		    .	(data)
 //		   );
+//		  
 //
 //		  System.err.println(response);
 
